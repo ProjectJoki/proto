@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package item_prices;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+option go_package = "./item-prices";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    version: "1.0";
+  };
+  schemes: [HTTP, HTTPS];
+};
+
+message GetQuantilePriceRequest {
+  string hashName = 1;
+  float quantile = 2;
+  int64 periodSeconds = 3;
+}
+
+message GetQuantilePriceResponse {
+  float price = 1;
+}
+
+message GetTradeCountRequest {
+  string hashName = 1;
+  int64 periodSeconds = 2;
+}
+
+message GetTradeCountResponse {
+  int64 tradeCount = 1;
+}
+
+message GetAutoBuyPriceRequest {
+  string hashName = 1;
+}
+
+message GetAutoBuyPriceResponse {
+  float price = 1;
+}
+
+message Price {
+  string hashName = 1;
+  float price = 2;
+  bool autoBuy = 3;
+}
+
+message GetAllPricesRequest {
+  int64 periodSeconds = 1;
+  int64 countThreshold = 2;
+  float quantile = 3;
+}
+
+message GetAllPricesResponse {
+  repeated Price prices = 1;
+}
+
+service PriceService {
+  rpc GetQuantilePrice(GetQuantilePriceRequest) returns (GetQuantilePriceResponse) {
+    option (google.api.http) = {
+      get: "/api/get_quantile_price/{hashName}/{periodSeconds}/{quantile}"
+    };
+  }
+
+  rpc GetTradeCount(GetTradeCountRequest) returns (GetTradeCountResponse) {
+    option (google.api.http) = {
+      get: "/api/get_trade_count/{hashName}/{periodSeconds}"
+    };
+  }
+
+  rpc GetAutoBuyPrice(GetAutoBuyPriceRequest) returns (GetAutoBuyPriceResponse) {
+    option (google.api.http) = {
+      get: "/api/get_auto_buy_price/{hashName}"
+    };
+  }
+
+  rpc GetAllPrices(GetAllPricesRequest) returns (GetAllPricesResponse) {
+    option (google.api.http) = {
+      get: "/api/get_all_prices/{periodSeconds}/{countThreshold}/{quantile}"
+    };
+  }
+}

@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package item_prices;
+
+option go_package = "./tradeUpFinderClient";
+
+enum SkinRarity {
+  CONSUMER = 0;
+  INDUSTRIAL = 1;
+  MIL_SPEC = 2;
+  RESTRICTED = 3;
+  CLASSIFIED = 4;
+  COVERT = 5;
+}
+
+message CommonOptions {
+  repeated string allowedCollections = 1;
+  repeated SkinRarity allowedRarities = 2;
+
+  bool allowStatTrak = 4;
+  bool allowNonStatTrak = 5;
+
+  optional double minProfit = 6;
+  optional double minProfitPercent = 7;
+
+  enum Sort {
+    BY_PROFIT = 0;
+    BY_PROFIT_PERCENT = 1;
+  }
+  Sort sort = 8;
+}
+
+message BorderForRangesSearchOptions {
+  double floatDelta = 1;
+  double timesFloatDelta = 2;
+}
+
+message PredictedTradeUpFinderOptions {
+  double floatDelta = 1;
+  double timesFloatDelta = 2;
+  int32 minPresentListings = 3;
+  double minPresentListingsPercent = 4;
+}
+
+message TradeUpRequest {
+  int32 maxTradeUpCnt = 1;
+  CommonOptions commonAlgorithmOptions = 2;
+  oneof algorithmOptions {
+    BorderForRangesSearchOptions borderForRangesSearchOptions = 3;
+    PredictedTradeUpFinderOptions predictedTradeUpFinderOptions = 4;
+  }
+}
+
+//==============================================================================
+
+message MarketListing {
+  string hashName = 1;
+  string marketId = 2;
+  double floatValue = 3;
+  int32 price = 4;
+}
+
+message JokerListing {
+  string collectionName = 1;
+  SkinRarity rarity = 2;
+
+  message FloatRange {
+    double lower = 1;
+    double upper = 2;
+  }
+  FloatRange floatValueRange = 3;
+
+  int32 maxPrice = 4;
+}
+
+message Listing {
+  oneof listing {
+    MarketListing marketListing = 1;
+    JokerListing jokerListing = 2;
+  }
+}
+
+message Outcome {
+  string hashName = 1;
+  int32 price = 2;
+  double floatValue = 3;
+  double probability = 4;
+}
+
+message TradeUp {
+  int32 inputsPrice = 1;
+  double profit = 2;
+  double profitPercent = 3;
+  repeated Listing listings = 4;
+  repeated Outcome outcomes = 5;
+}
+
+message TradeUpResponse {
+  repeated TradeUp tradeUps = 1;
+}

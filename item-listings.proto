@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package item_prices;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+option go_package = "./item-prices";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    version: "1.0";
+  };
+  schemes: [HTTP, HTTPS];
+};
+
+message ItemListing {
+  string id = 1;
+  int32 price = 2;
+  double floatValue = 3;
+}
+
+message ItemListings {
+  string hashName = 1;
+  repeated ItemListing listings = 2;
+}
+
+message GetListingsRequest {
+  string hashName = 1;
+}
+
+message GetListingsResponse {
+  ItemListings listings = 1;
+}
+
+message GetAllListingsRequest {}
+
+message GetAllListingsResponse {
+  repeated ItemListings allListings = 1;
+}
+
+service ListingsService {
+  rpc GetListings(GetListingsRequest) returns (GetListingsResponse) {
+    option (google.api.http) = {
+      get: "/api/get_listings/{hashName}"
+    };
+  }
+
+  rpc GetAllListings(GetAllListingsRequest) returns (GetAllListingsResponse) {
+    option (google.api.http) = {
+      get: "/api/get_all_listings"
+    };
+  }
+}
