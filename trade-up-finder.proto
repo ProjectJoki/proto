@@ -20,8 +20,8 @@ message CommonOptions {
   bool allowStatTrak = 4;
   bool allowNonStatTrak = 5;
 
-  optional double minProfit = 6;
-  optional double minProfitPercent = 7;
+  double minProfit = 6;
+  double minProfitPercent = 7;
 
   enum Sort {
     BY_PROFIT = 0;
