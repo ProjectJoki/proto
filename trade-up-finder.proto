@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package item_prices;
+package trade_up_finder;
 
 option go_package = "./tradeUpFinderClient";
 
