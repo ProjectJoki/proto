@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package item_prices;
+package item_listings;
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
-option go_package = "./item-prices";
+option go_package = "./item-listings";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
