@@ -98,3 +98,13 @@ message TradeUp {
 message TradeUpResponse {
   repeated TradeUp tradeUps = 1;
 }
+
+//==============================================================================
+
+message BuyListingsRequest {
+  repeated MarketListing listings = 1;
+}
+
+message RequestListingsRequest {
+  repeated JokerListing listings = 1;
+}
