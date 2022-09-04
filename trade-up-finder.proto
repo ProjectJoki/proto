@@ -14,14 +14,14 @@ enum SkinRarity {
 }
 
 message CommonOptions {
-  repeated string allowedCollections = 1;
-  repeated SkinRarity allowedRarities = 2;
+  repeated string allowed_collections = 1;
+  repeated SkinRarity allowed_rarities = 2;
 
-  bool allowStatTrak = 4;
-  bool allowNonStatTrak = 5;
+  bool allow_stat_trak = 4;
+  bool allow_non_stat_trak = 5;
 
-  double minProfit = 6;
-  double minProfitPercent = 7;
+  double min_profit = 6;
+  double min_profit_percent = 7;
 
   enum Sort {
     BY_PROFIT = 0;
@@ -31,72 +31,72 @@ message CommonOptions {
 }
 
 message BorderForRangesSearchOptions {
-  double floatDelta = 1;
-  double timesFloatDelta = 2;
+  double float_delta = 1;
+  double times_float_delta = 2;
 }
 
 message PredictedTradeUpFinderOptions {
-  double floatDelta = 1;
-  double timesFloatDelta = 2;
-  int32 minPresentListings = 3;
-  double minPresentListingsPercent = 4;
+  double float_delta = 1;
+  double times_float_delta = 2;
+  int32 min_present_listings = 3;
+  double min_present_listings_percent = 4;
 }
 
 message TradeUpRequest {
-  int32 maxTradeUpCnt = 1;
-  CommonOptions commonAlgorithmOptions = 2;
+  int32 max_trade_up_cnt = 1;
+  CommonOptions common_algorithm_options = 2;
   oneof algorithmOptions {
-    BorderForRangesSearchOptions borderForRangesSearchOptions = 3;
-    PredictedTradeUpFinderOptions predictedTradeUpFinderOptions = 4;
+    BorderForRangesSearchOptions border_for_ranges_search_options = 3;
+    PredictedTradeUpFinderOptions predicted_trade_up_finder_options = 4;
   }
 }
 
 //==============================================================================
 
 message MarketListing {
-  string hashName = 1;
-  string marketId = 2;
-  double floatValue = 3;
+  string hash_name = 1;
+  string market_id = 2;
+  double float_value = 3;
   int32 price = 4;
 }
 
 message JokerListing {
-  string collectionName = 1;
+  string collection_name = 1;
   SkinRarity rarity = 2;
 
   message FloatRange {
     double lower = 1;
     double upper = 2;
   }
-  FloatRange floatValueRange = 3;
+  FloatRange float_value_range = 3;
 
-  int32 maxPrice = 4;
+  int32 max_price = 4;
 }
 
 message Listing {
   oneof listing {
-    MarketListing marketListing = 1;
-    JokerListing jokerListing = 2;
+    MarketListing market_listing = 1;
+    JokerListing joker_listing = 2;
   }
 }
 
 message Outcome {
-  string hashName = 1;
+  string hash_name = 1;
   int32 price = 2;
-  double floatValue = 3;
+  double float_value = 3;
   double probability = 4;
 }
 
 message TradeUp {
-  int32 inputsPrice = 1;
+  int32 inputs_price = 1;
   double profit = 2;
-  double profitPercent = 3;
+  double profit_percent = 3;
   repeated Listing listings = 4;
   repeated Outcome outcomes = 5;
 }
 
 message TradeUpResponse {
-  repeated TradeUp tradeUps = 1;
+  repeated TradeUp trade_ups = 1;
 }
 
 //==============================================================================
