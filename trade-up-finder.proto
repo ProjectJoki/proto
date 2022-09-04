@@ -45,7 +45,7 @@ message PredictedTradeUpFinderOptions {
 message TradeUpRequest {
   int32 max_trade_up_cnt = 1;
   CommonOptions common_algorithm_options = 2;
-  oneof algorithmOptions {
+  oneof algorithm_options {
     BorderForRangesSearchOptions border_for_ranges_search_options = 3;
     PredictedTradeUpFinderOptions predicted_trade_up_finder_options = 4;
   }
