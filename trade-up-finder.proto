@@ -28,6 +28,8 @@ message CommonOptions {
     BY_PROFIT_PERCENT = 1;
   }
   Sort sort = 8;
+
+  int32 max_price = 9;
 }
 
 message BorderForRangesSearchOptions {
@@ -38,8 +40,8 @@ message BorderForRangesSearchOptions {
 message PredictedTradeUpFinderOptions {
   double float_delta = 1;
   double times_float_delta = 2;
-  int32 min_present_listings = 3;
-  double min_present_listings_percent = 4;
+  double predicted_bought_items_cnt_multiplier = 3;
+  double max_overpay_percent = 4;
 }
 
 message TradeUpRequest {
@@ -71,6 +73,7 @@ message JokerListing {
   FloatRange float_value_range = 3;
 
   int32 max_price = 4;
+  int32 cnt = 5;
 }
 
 message Listing {
