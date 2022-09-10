@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package item_listings;
+package item_prices;
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
-option go_package = "./item-listings";
+option go_package = "./item-prices";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
@@ -15,18 +15,25 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 message ItemListing {
-  string id = 1;
-  int32 price = 2;
-  double floatValue = 3;
+  string hash_name = 1;
+  string market_id = 2;
+  double float_value = 3;
+  int32 price = 4;
+}
+
+message ShortItemListing {
+  string market_id = 1;
+  double float_value = 2;
+  int32 price = 3;
 }
 
 message ItemListings {
-  string hashName = 1;
-  repeated ItemListing listings = 2;
+  string hash_name = 1;
+  repeated ShortItemListing listings = 2;
 }
 
 message GetListingsRequest {
-  string hashName = 1;
+  string hash_name = 1;
 }
 
 message GetListingsResponse {
@@ -36,19 +43,32 @@ message GetListingsResponse {
 message GetAllListingsRequest {}
 
 message GetAllListingsResponse {
-  repeated ItemListings allListings = 1;
+  repeated ItemListings all_listings = 1;
 }
+
+message DeleteItemsRequest {
+  repeated ItemListing listings = 1;
+}
+
+message DeleteItemsResponse {}
 
 service ListingsService {
   rpc GetListings(GetListingsRequest) returns (GetListingsResponse) {
     option (google.api.http) = {
-      get: "/api/get_listings/{hashName}"
+      get: "/api/get_listings/{hash_name}"
     };
   }
 
   rpc GetAllListings(GetAllListingsRequest) returns (GetAllListingsResponse) {
     option (google.api.http) = {
       get: "/api/get_all_listings"
+    };
+  }
+
+  rpc DeleteItems(DeleteItemsRequest) returns (DeleteItemsResponse) {
+    option (google.api.http) = {
+      post: "/api/delete_items"
+      body: "*"
     };
   }
 }
