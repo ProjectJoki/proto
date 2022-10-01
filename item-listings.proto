@@ -23,9 +23,8 @@ message ItemListing {
 
 message ShortItemListing {
   string market_id = 1;
-  string asset_id = 2;
-  double float_value = 3;
-  int32 price = 4;
+  double float_value = 2;
+  int32 price = 3;
 }
 
 message ItemListings {
