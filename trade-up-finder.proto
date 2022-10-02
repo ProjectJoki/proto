@@ -44,6 +44,12 @@ message PredictedTradeUpFinderOptions {
   double max_overpay_percent = 4;
 }
 
+message MarketOptions {
+  int32 time_period = 1;
+  int32 count_threshold = 2;
+  float price_quantile = 3;
+}
+
 message TradeUpRequest {
   int32 max_trade_up_cnt = 1;
   CommonOptions common_algorithm_options = 2;
@@ -51,6 +57,7 @@ message TradeUpRequest {
     BorderForRangesSearchOptions border_for_ranges_search_options = 3;
     PredictedTradeUpFinderOptions predicted_trade_up_finder_options = 4;
   }
+  MarketOptions market_options = 5;
 }
 
 //==============================================================================
@@ -96,10 +103,14 @@ message TradeUp {
   double profit_percent = 3;
   repeated Listing listings = 4;
   repeated Outcome outcomes = 5;
+  uint32 quality = 6;
+  bool is_stat_trak = 7;
 }
 
 message TradeUpResponse {
-  repeated TradeUp trade_ups = 1;
+  int32 exit_code = 1;
+  string logs = 2;
+  repeated TradeUp trade_ups = 3;
 }
 
 //==============================================================================
