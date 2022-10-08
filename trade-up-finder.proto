@@ -86,7 +86,6 @@ message Listing {
     JokerListing joker_listing = 2;
   }
   string collection_name = 3;
-  SkinRarity rarity = 4;
 }
 
 message Outcome {
