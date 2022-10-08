@@ -67,21 +67,17 @@ message MarketListing {
   string market_id = 2;
   double float_value = 3;
   int32 price = 4;
-  string collection_name = 5;
 }
 
 message JokerListing {
-  string collection_name = 1;
-  SkinRarity rarity = 2;
-
   message FloatRange {
     double lower = 1;
     double upper = 2;
   }
-  FloatRange float_value_range = 3;
+  FloatRange float_value_range = 1;
 
-  int32 max_price = 4;
-  int32 cnt = 5;
+  int32 max_price = 2;
+  int32 cnt = 3;
 }
 
 message Listing {
@@ -89,6 +85,8 @@ message Listing {
     MarketListing market_listing = 1;
     JokerListing joker_listing = 2;
   }
+  string collection_name = 3;
+  SkinRarity rarity = 4;
 }
 
 message Outcome {
