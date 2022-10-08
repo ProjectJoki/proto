@@ -67,6 +67,7 @@ message MarketListing {
   string market_id = 2;
   double float_value = 3;
   int32 price = 4;
+  string collection_name = 5;
 }
 
 message JokerListing {
